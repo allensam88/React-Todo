@@ -4,34 +4,31 @@ class SearchForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      newItem: ''
+      query: ''
     };
   }
 
-  handleChanges = e => {
+  handleChanges = event => {
     this.setState({
-      newItem: e.target.value
+      query: event.target.value
     });
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.addItem(this.state.newItem);
-    this.setState({ newItem: '' });
+    this.props.searchItem(this.state.query);
+    
   };
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form>
         <input
           type="text"
           name="item"
           id="item"
-          placeholder='add an item'
-          value={this.state.newItem}
+          placeholder='search an item'
+          value={this.state.query}
           onChange={this.handleChanges}
+          autoComplete="off"
+          className='search'
         />
-        <button>Add</button>
       </form>
     );
   }

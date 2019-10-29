@@ -56,12 +56,10 @@ class App extends Component {
     });
   };
 
-  clearItem = id => {
+  clearItem = () => {
     this.setState({
       todos: this.state.todos.filter(item => {
-        if (item.completed === false){
-          return item;
-        }
+        return item.completed === false;
       })
     })
   };
@@ -81,13 +79,21 @@ class App extends Component {
     });
   };
 
+  searchItem = (query) => {
+    this.setState({
+      todos: this.state.todos.filter((item) => {
+        return item.name.toLowerCase().includes(query.toLowerCase())
+      })
+    })
+  }
+
   render() {
     return (
       <div className="App">
         <h1>To-Do List</h1>
         <TodoForm addItem={this.addItem} />
-        <SearchForm />
-        <TodoList toggleCompleted={this.toggleCompleted} todos={this.state.todos} clearItem={this.clearItem}/>
+        <SearchForm searchItem={this.searchItem} />
+        <TodoList toggleCompleted={this.toggleCompleted} todos={this.state.todos} clearItem={this.clearItem} />
       </div>
     );
   }
